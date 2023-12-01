@@ -1,3 +1,8 @@
+'''
+file_entry_class creates an object for FileDataEntry that holds all the user input for filtering the data
+'''
+
+
 class FileDataEntry:
     titleholder = ''
     lower_bound = ''

@@ -1,6 +1,7 @@
 from meteor_data_class import MeteorDataEntry
 from terminaltext import *
 from file_entry_class import FileDataEntry
+from table import *
 
 # Project 1.1 For Software Engineering
 
@@ -23,47 +24,31 @@ def inputmenu():
     
     dataFiltering(fileEntry) # prompts for both lower and upper bounds as well as for year or mass
 
-    filterfile(fileEntry.titleholder, int(fileEntry.lower_bound), int(fileEntry.upper_bound), fileEntry.mode, fileEntry.textfile) # formats data into a table
+    filterfile(fileEntry) # formats data into a table
 
-def filterfile(title, lower_bound, upper_bound, readmode, targetfile):
-    data_list1 = [] # stores the entire base text file
+# remember for lower bound and upper bound you have to convert it to an int
+def filterfile(fileEntry):
     final_list = [] # stores the sorted meteor data entries
-    with open(targetfile, readmode) as f:
+    with open(fileEntry.textfile, fileEntry.mode) as f:
         next(f) # skips first line of text in txt file
-        for line in f: # parses through every line in the text file
-            line.strip()
-            data_list1 = line.split('\t')
-            try: # tries to perform the following comparisons and skips the line is there is an error via the except clause
-                if title == "MASS": # runs code if we are looking for mass table
-                    if float(data_list1[4]) >= lower_bound and float(data_list1[4]) <= upper_bound: # checks the mass of each entry and limits
-                        MeteorEntry = MeteorDataEntry(data_list1[0], data_list1[1], data_list1[2], data_list1[3], data_list1[4], data_list1[5], data_list1[6],
-                        data_list1[7], data_list1[8], data_list1[9], data_list1[10], data_list1[11]) # creates new meteor entry object
-                        final_list.append(MeteorEntry) # adds the new entry to the list
-                if title == "YEAR": # runs code if we are looking for year table
-                    if int(data_list1[6]) >= lower_bound and int(data_list1[6]) <= upper_bound: # checks the year of each entry
-                        MeteorEntry = MeteorDataEntry(data_list1[0], data_list1[1], data_list1[2], data_list1[3], data_list1[4], data_list1[5], data_list1[6],
-                        data_list1[7], data_list1[8], data_list1[9], data_list1[10], data_list1[11]) # creates new meteor entry object
-                        final_list.append(MeteorEntry) # adds the new entry to the list
-            except:
-                pass
-    headers = ['NAME', title] # headers for the table categories
-    if title == "MASS":
-        textFormatter(headers, final_list, upper_bound, lower_bound)
-    elif title == "YEAR":
-        textFormatter(headers, final_list, upper_bound, lower_bound)
+        final_list = createMeteorEntries(fileEntry, final_list, f) # creates meteor entries for either all mass or year data
+          
+    headers = ['NAME', fileEntry.titleholder] # headers for the table categories
+    textFormatter(headers, final_list, fileEntry)
+   
 
-def textFormatter(headers, final_list, upper_bound, lower_bound): # creates the tables in the terminal
+def textFormatter(headers, final_list, fileEntry): # creates the tables in the terminal
     indexholder = 0
     if headers[1] == "MASS":
         indexholder = 4
     if headers[1] == "YEAR":
         indexholder = 6
-    print(10*" " + headers[0] + 30*" " + headers[1]) # formats the headers for name and mass table
+    print(10*" " + 'NAME' + 30*" " + headers[1]) # formats the headers for name and mass table
     print(80*"=") # creates a divider
     counter = 0
     for item in final_list: # parses through all the sorted data entries
         holder = list(item.get_data().values()) # creates a list that holds all the data entry information
-        if float(holder[indexholder]) <= upper_bound and float(holder[indexholder]) >= lower_bound : # checks for mass to print out to the table
+        if float(holder[indexholder]) <= int(fileEntry.upper_bound) and float(holder[indexholder]) >= int(fileEntry.lower_bound): # checks for mass to print out to the table
             counter += 1 # increments counter to show line count for printed entries
             if counter > 9: # if counter is greater than 9 change spacing, used for correcting spacing when line numbers are over 9
                 print(str(counter) + 9*" " + holder[0] + (25-int(len(holder[0])))*" " + 8*" " + holder[indexholder]) # prints the data entries for mass

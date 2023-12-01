@@ -1,5 +1,11 @@
 from file_entry_class import FileDataEntry
 
+'''
+termianltext.py contains functions that prompt the user and get the information required to produce the table
+all functions involve printing to the terminal and collecting user input
+'''
+
+
 # prints out welcome message
 def welcome_message(): 
     print("Welcome to the meteorite filtering program\n") # welcome message
