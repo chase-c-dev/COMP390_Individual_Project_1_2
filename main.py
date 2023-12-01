@@ -5,11 +5,7 @@ from file_entry_class import FileDataEntry
 # Project 1.1 For Software Engineering
 
 def inputmenu():
-    titleholder = "" # stores year or mass based on which filter the user chooses
-    lower_bound = 0 # stores lower bound for filtering
-    upper_bound = 0 # stores upper bound for filtering
-    datafilter = " "
-    fileEntry = FileDataEntry(titleholder, lower_bound, upper_bound, "", "")
+    fileEntry = FileDataEntry("", "", "", "", "")
     # welcome message
     welcome_message()
     # prompt for file name
@@ -24,40 +20,10 @@ def inputmenu():
                  '"t" - text mode(default)\n'
                  '"+" - open for updating (reading and writing)\n'
                  "Enter >q or >Q to quit\n", "File Mode: ")
+    
+    dataFiltering(fileEntry) # prompts for both lower and upper bounds as well as for year or mass
 
-    data_filter = input("What attribute would you like to filter the data on\n 1. meteor MASS(g)\n 2. The Year the meteor fell to earth\n 3. QUIT\n")
-    if data_filter == "3": # exists the program
-        return
-    elif data_filter == "2": # code for year input and year table in this elif statement
-        titleholder = "YEAR"
-        lower = input("Enter the LOWER limit (inclusive) for the meteor's Year, Enter Q or q to quit: \n")
-        if lower == "q" or lower == "Q":
-            print("The program is now exiting Goodbye!")
-            return
-        else:
-            lower_bound = int(lower)
-        upper = input("Enter the UPPER limit (inclusive) for the meteor's Year, Enter Q or q to quit: \n")
-        if upper == "q" or upper == "Q":
-            print("The program is now exiting Goodbye!")
-            return
-        else:
-            upper_bound = int(upper)
-        filterfile(titleholder, lower_bound, upper_bound, fileEntry.mode, fileEntry.textfile)
-    else: # code for mass input and mass table run in this statement
-        titleholder = "MASS"
-        lower = input("Enter the LOWER limit (inclusive) for the meteor's MASS(g), Enter Q or q to quit: \n")
-        if lower == "q" or lower == "Q":
-            print("The program is now exiting Goodbye!")
-            return
-        else:
-            lower_bound = int(lower)
-        upper = input("Enter the UPPER limit (inclusive) for the meteor's MASS(g), Enter Q or q to quit: \n")
-        if upper == "q" or upper == "Q":
-            print("The program is now exiting Goodbye!")
-            return
-        else:
-            upper_bound = int(upper)
-        filterfile(titleholder, lower_bound, upper_bound, fileEntry.mode, fileEntry.textfile)
+    filterfile(fileEntry.titleholder, int(fileEntry.lower_bound), int(fileEntry.upper_bound), fileEntry.mode, fileEntry.textfile) # formats data into a table
 
 def filterfile(title, lower_bound, upper_bound, readmode, targetfile):
     data_list1 = [] # stores the entire base text file
