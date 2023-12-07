@@ -14,7 +14,7 @@ def inputmenu():
     # prompt for mode to open up file
     fileEntry.mode = file_data_prompter(fileEntry.mode, 'What mode would you like to open up the file with\n' 
                  '"r" - open for reading (default)\n'
-                 '"m" - open for writing, truncating the file first\n'
+                 '"m" - open for writing, truncating the file first (WARNING: this mode will delete the contents of an existing file)\n'
                  '"x" - open for exclusive creation, failing if the file already exists\n'
                  '"a" - open for writing, appending to the end of file if it exists\n'
                  '"b" - binary mode\n'
