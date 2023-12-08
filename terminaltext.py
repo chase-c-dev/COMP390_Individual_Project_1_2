@@ -1,4 +1,5 @@
 from file_entry_class import FileDataEntry
+from table import *
 
 '''
 termianltext.py contains functions that prompt the user and get the information required to produce the table
@@ -59,4 +60,3 @@ def dataFiltering(file_entry): # chooses year, mass or exit based on user input
 def bounds_prompt(file_entry, label_text): # prompts for upper and lower bounds of mass or year
     file_entry.lower_bound = file_bounds_prompter(file_entry.lower_bound, "Enter the LOWER limit (inclusive) for the meteor's " + label_text + " , (Enter Q to quit) \n", "Lower Bound: ")
     file_entry.upper_bound = file_bounds_prompter(file_entry.upper_bound, "Enter the UPPER limit (inclusive) for the meteor's " + label_text + " , (Enter Q to quit) \n", "Upper Bound: ")
-   

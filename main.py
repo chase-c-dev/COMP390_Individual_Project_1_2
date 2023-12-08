@@ -22,23 +22,34 @@ def inputmenu():
                  '"+" - open for updating (reading and writing)\n'
                  "Enter >q or >Q to quit\n", "File Mode: ")
     # prompts for both lower and upper bounds as well as for year or mass
-    dataFiltering(fileEntry) 
+    dataFiltering(fileEntry)
     # formats data into a table
-    filterfile(fileEntry) 
+    choose_output_result_type(fileEntry)
 
 def filterfile(fileEntry):
     final_list = [] # stores the sorted meteor data entries
     with open(fileEntry.textfile, fileEntry.mode) as f:
         next(f) # skips first line of text in txt file
         final_list = createMeteorEntries(fileEntry, final_list, f) # creates meteor entries for either all mass or year data
-          
+
     tableCreate(final_list, fileEntry) # creates the table
-   
+
 
 def tableCreate(final_list, fileEntry): # creates the tables in the terminal
     indexholder = parseIndex(fileEntry)
-    table_header(fileEntry) # creates the header for the table
-    printTable(final_list, fileEntry, indexholder)
+    printTable(final_list, fileEntry, indexholder) # prints out table into terminal
+
+def choose_output_result_type(fileEntry): # prompts user for options to output file data
+    output_type = input("How would you like to putput the filter results?\n 1. On screen (in terminal)\n 2. To a TEXT file\n 3. To an EXCEL file\n 4. QUIT")
+    if int(output_type) == 1:
+        filterfile(fileEntry)
+    if int(output_type) == 2:
+        pass
+    if int(output_type) == 3:
+        pass
+    if int(output_type) == 4:
+        print("The program is now exiting Goodbye!")
+        exit()
 
 if __name__ == "__main__":
     inputmenu() # runs the program
