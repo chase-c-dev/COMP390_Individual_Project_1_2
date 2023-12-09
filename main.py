@@ -2,6 +2,7 @@ from meteor_data_class import MeteorDataEntry
 from terminaltext import *
 from file_entry_class import FileDataEntry
 from table import *
+from textfile_create import *
 
 # Project 1.2 For Software Engineering
 
@@ -39,12 +40,13 @@ def tableCreate(final_list, fileEntry): # creates the tables in the terminal
     indexholder = parseIndex(fileEntry)
     printTable(final_list, fileEntry, indexholder) # prints out table into terminal
 
+
 def choose_output_result_type(fileEntry): # prompts user for options to output file data
     output_type = input("How would you like to putput the filter results?\n 1. On screen (in terminal)\n 2. To a TEXT file\n 3. To an EXCEL file\n 4. QUIT")
     if int(output_type) == 1:
         filterfile(fileEntry)
     if int(output_type) == 2:
-        pass
+        create_text_file(fileEntry)
     if int(output_type) == 3:
         pass
     if int(output_type) == 4:
