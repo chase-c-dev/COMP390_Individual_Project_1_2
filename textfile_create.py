@@ -54,10 +54,6 @@ def get_all_text_data(line_numbers, header, fileEntry): # gets all the data to w
             line_counter += 1
     return text_data
 
-
-
-
-
 def get_clean_datetime_string():
     current_timestamp = datetime.now()
     current_timestamp.strftime("%Y-%m-%d %H-%M-%S")

@@ -3,6 +3,7 @@ from terminaltext import *
 from file_entry_class import FileDataEntry
 from table import *
 from textfile_create import *
+from exelfile_create import *
 
 # Project 1.2 For Software Engineering
 
@@ -48,7 +49,7 @@ def choose_output_result_type(fileEntry): # prompts user for options to output f
     if int(output_type) == 2:
         create_text_file(fileEntry)
     if int(output_type) == 3:
-        pass
+        write_filtered_results_to_excel_file(fileEntry)
     if int(output_type) == 4:
         print("The program is now exiting Goodbye!")
         exit()
