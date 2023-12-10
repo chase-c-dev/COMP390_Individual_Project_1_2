@@ -17,7 +17,6 @@ def get_filtered_meteor_data_fortxt(fileEntry):
         header = f.readline()
         next(f)
         line_numbers = getLineNumbers(fileEntry, line_numbers, f)
-    
     data_for_textfile = get_all_text_data(line_numbers, header, fileEntry)
     return data_for_textfile
 

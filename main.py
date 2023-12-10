@@ -14,19 +14,22 @@ def inputmenu():
     # prompt for file name
     fileEntry.textfile = file_data_prompter(fileEntry.textfile, "Enter a valid file name(ex. filename.txt) with its file extension (if applicable) or enter >q or >Q to quit", "Target file: ")
     # prompt for mode to open up file
-    fileEntry.mode = file_data_prompter(fileEntry.mode, 'What mode would you like to open up the file with\n' 
-                 '"r" - open for reading (default)\n'
-                 '"m" - open for writing, truncating the file first (WARNING: this mode will delete the contents of an existing file)\n'
-                 '"x" - open for exclusive creation, failing if the file already exists\n'
-                 '"a" - open for writing, appending to the end of file if it exists\n'
-                 '"b" - binary mode\n'
-                 '"t" - text mode(default)\n'
-                 '"+" - open for updating (reading and writing)\n'
-                 "Enter >q or >Q to quit\n", "File Mode: ")
+    mode_prompt(fileEntry)
     # prompts for both lower and upper bounds as well as for year or mass
     dataFiltering(fileEntry)
     # formats data into a table
     choose_output_result_type(fileEntry)
+
+def mode_prompt(fileEntry):
+    fileEntry.mode = file_data_prompter(fileEntry.mode, 'What mode would you like to open up the file with\n' 
+        '"r" - open for reading (default)\n'
+        '"m" - open for writing, truncating the file first (WARNING: this mode will delete the contents of an existing file)\n'
+        '"x" - open for exclusive creation, failing if the file already exists\n'
+        '"a" - open for writing, appending to the end of file if it exists\n'
+        '"b" - binary mode\n'
+        '"t" - text mode(default)\n'
+        '"+" - open for updating (reading and writing)\n'
+        "Enter >q or >Q to quit\n", "File Mode: ")
 
 def filterfile(fileEntry):
     final_list = [] # stores the sorted meteor data entries

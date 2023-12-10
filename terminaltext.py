@@ -46,7 +46,6 @@ def quitCheckBounds(promptInput, output_text):
 
 def dataFiltering(file_entry): # chooses year, mass or exit based on user input
     data_filter = input("What attribute would you like to filter the data on\n 1. meteor MASS(g)\n 2. The Year the meteor fell to earth\n 3. QUIT\n")
-   
     if data_filter == "3": # exists the program
         print("The program is now exiting Goodbye!")
         exit()
