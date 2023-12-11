@@ -1,5 +1,6 @@
 from file_entry_class import FileDataEntry
 from table import *
+from error_handling import *
 
 '''
 termianltext.py contains functions that prompt the user and get the information required to produce the table
@@ -16,33 +17,60 @@ def welcome_message():
     print("\nI am the developer, Chase\n")
     print("The release date of this program is October 5th 2023\n")
 
-def file_data_prompter(file_entry, input_text, output_text): # runs the input menu and the quitCheck function for mode and file name
-    file_entry = input(input_text)
-    quitCheckData(file_entry, output_text) # checks to see if the program exits or continues
-    return file_entry
+def file_mode_data_prompter(fileEntry, input_text, output_text): # runs the input menu and the quitCheck function for mode and file name
+    fileEntry.mode = input(input_text)
+    quitCheckMode(fileEntry.mode, output_text, fileEntry) # checks to see if the program exits or continues
+
+def file_path_data_prompter(fileEntry, input_text, output_text): # runs the input menu and the quitCheck function for mode and file name
+    fileEntry.textfile = input(input_text)
+    quitCheckFilePath(fileEntry.textfile, output_text, fileEntry) # checks to see if the program exits or continues
 
 def file_bounds_prompter(file_entry, input_text, output_text): # runs the input menu and quit check for filter bounds
     file_entry = input(input_text)
-    quitCheckBounds("\n" + file_entry, output_text) # checks to see if the program exits or continues
+    quitCheckBounds(file_entry, output_text) # checks to see if the program exits or continues
     return file_entry
 
-# checks to see if program quits or continues for file and mode prompt
-def quitCheckData(promptInput, output_text):
+def exit_check(promptInput): # checks to see if program should exit
     if promptInput == ">q" or promptInput == ">Q": 
         print("The program is now exiting Goodbye!")
         exit() # exits program
-        #return # exits the program
-    else:
-        print("\n" + output_text + promptInput + "\n") # prints read mode
 
+def quitCheckFilePath(promptInput, output_text, fileEntry): # checks file path to see if program should quit or if theres an error
+    exit_check(promptInput)
+    errorcheck(output_text, 1, fileEntry)
+
+def quitCheckMode(promptInput, output_text, fileEntry): # checks mode to see if program should quit or if theres an error
+    exit_check(promptInput)
+    errorcheck(output_text, 2, fileEntry)
+       
 # checks to see if program quits or continues for bounds prompts
 def quitCheckBounds(promptInput, output_text):
     if promptInput == "Q": 
         print("The program is now exiting Goodbye!")
         exit() # exits program
-        #return # exits the program
     else:
         print(output_text + promptInput + "\n") # prints read mode
+
+def errorcheck(output_text, num, fileEntry): # runs error checks for various user input prompts
+    if num == 1 and check_file_path(fileEntry, output_text) == False:
+        file_path_data_prompter(fileEntry, "Enter a valid file name(ex. filename.txt) with its file extension (if applicable) or enter >q or >Q to quit", "Target file: ")
+    if num == 2 and check_for_mode(fileEntry, output_text) == False:
+        file_mode_data_prompter(fileEntry, mode_prompt_text(), "File Mode: ")
+    else:
+        pass
+
+def mode_prompt_text(): # returns string for mode prompt
+    mode_prompt = 'What mode would you like to open up the file with\n' 
+    '"r" - open for reading (default)\n'
+    '"m" - open for writing, truncating the file first (WARNING: this mode will delete the contents of an existing file)\n'
+    '"x" - open for exclusive creation, failing if the file already exists\n'
+    '"a" - open for writing, appending to the end of file if it exists\n'
+    '"b" - binary mode\n'
+    '"t" - text mode(default)\n'
+    '"+" - open for updating (reading and writing)\n'
+    "Enter >q or >Q to quit\n"
+    return mode_prompt
+    
 
 def dataFiltering(file_entry): # chooses year, mass or exit based on user input
     data_filter = input("What attribute would you like to filter the data on\n 1. meteor MASS(g)\n 2. The Year the meteor fell to earth\n 3. QUIT\n")
