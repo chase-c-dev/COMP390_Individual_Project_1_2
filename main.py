@@ -51,16 +51,12 @@ def tableCreate(final_list, fileEntry): # creates the tables in the terminal
 
 
 def choose_output_result_type(fileEntry): # prompts user for options to output file data
-    output_type = input("How would you like to putput the filter results?\n 1. On screen (in terminal)\n 2. To a TEXT file\n 3. To an EXCEL file\n 4. QUIT")
-    if int(output_type) == 1:
-        filterfile(fileEntry)
+    output_type = output_result_type_prompt("", fileEntry)
+    filterfile(fileEntry)
     if int(output_type) == 2:
         create_text_file(fileEntry)
     if int(output_type) == 3:
         write_filtered_results_to_excel_file(fileEntry)
-    if int(output_type) == 4:
-        print("The program is now exiting Goodbye!")
-        exit()
 
 if __name__ == "__main__":
     inputmenu() # runs the program

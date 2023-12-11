@@ -56,6 +56,16 @@ def errorcheck(output_text, num, fileEntry): # runs error checks for various use
         file_path_data_prompter(fileEntry, "Enter a valid file name(ex. filename.txt) with its file extension (if applicable) or enter >q or >Q to quit", "Target file: ")
     if num == 2 and check_for_mode(fileEntry, output_text) == False:
         file_mode_data_prompter(fileEntry, mode_prompt_text(), "File Mode: ")
+    if num == 3 and filter_category_check(output_text) == False:
+        dataFiltering(fileEntry)
+    if num == 4 and check_lower_bound(fileEntry, output_text) == False:
+        fileEntry.lower_bound = file_bounds_prompter(fileEntry.lower_bound, "Enter the LOWER limit (inclusive) for the meteor's " + output_text + " , (Enter Q to quit) \n", "Lower Bound: ")
+        errorcheck(output_text, 4, fileEntry)
+    if num == 5 and check_upper_bound(fileEntry, output_text) == False:
+        fileEntry.upper_bound = file_bounds_prompter(fileEntry.upper_bound, "Enter the UPPER limit (inclusive) for the meteor's " + output_text + " , (Enter Q to quit) \n", "Upper Bound: ")
+        errorcheck(output_text, 5, fileEntry)
+    if num == 6 and check_display_type(output_text, fileEntry) == False:
+        output_result_type_prompt(output_text, fileEntry)
     else:
         pass
 
@@ -74,6 +84,7 @@ def mode_prompt_text(): # returns string for mode prompt
 
 def dataFiltering(file_entry): # chooses year, mass or exit based on user input
     data_filter = input("What attribute would you like to filter the data on\n 1. meteor MASS(g)\n 2. The Year the meteor fell to earth\n 3. QUIT\n")
+    errorcheck(data_filter, 3, file_entry) # checks user_input for errors
     if data_filter == "3": # exists the program
         print("The program is now exiting Goodbye!")
         exit()
@@ -86,4 +97,21 @@ def dataFiltering(file_entry): # chooses year, mass or exit based on user input
 
 def bounds_prompt(file_entry, label_text): # prompts for upper and lower bounds of mass or year
     file_entry.lower_bound = file_bounds_prompter(file_entry.lower_bound, "Enter the LOWER limit (inclusive) for the meteor's " + label_text + " , (Enter Q to quit) \n", "Lower Bound: ")
+    errorcheck(label_text, 4, file_entry)
     file_entry.upper_bound = file_bounds_prompter(file_entry.upper_bound, "Enter the UPPER limit (inclusive) for the meteor's " + label_text + " , (Enter Q to quit) \n", "Upper Bound: ")
+    errorcheck(label_text, 5, file_entry)
+
+def output_result_type_prompt(output_type, fileEntry): # runs prompt for output type
+    output_type = input("How would you like to putput the filter results?\n 1. On screen (in terminal)\n 2. To a TEXT file\n 3. To an EXCEL file\n 4. QUIT")
+    errorcheck(output_type, 6, fileEntry)
+    try:
+        if int(output_type) == 4:
+            print("The program is now exiting Goodbye!")
+            exit()
+    except:
+        pass
+    return output_type
+
+
+
+
