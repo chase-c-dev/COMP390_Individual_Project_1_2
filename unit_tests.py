@@ -62,6 +62,21 @@ def test_bounds_prompt_non_number_error(monkeypatch, capsys):
     assert "Lower Bound: abc" in captured.out
     assert "INVALID INPUT\n PLEASE ENTER A NUMERIC VALUE" in captured.out
 
+def test_bounds_prompt_zero(monkeypatch, capsys): # tests inputting zero into bounds prompt
+    file_entry_test = createfileEntry()
+
+    test_input1 = Test_Input(["0", "10"])
+    monkeypatch.setattr('builtins.input', test_input1)
+
+    bounds_prompt(file_entry_test, "MASS")
+
+    captured = capsys.readouterr()
+    # test for normal conditions
+    assert "Lower Bound: 0" in captured.out
+    assert "Upper Bound: 10" in captured.out
+    assert file_entry_test.lower_bound == '0'
+    assert file_entry_test.upper_bound == '10'
+
 def test_bounds_prompt_quit(monkeypatch, capsys): # tests the quit (Q) for bounds prompt
     file_entry_test = createfileEntry()
     test_input = Test_Input(["Q", "5"])
