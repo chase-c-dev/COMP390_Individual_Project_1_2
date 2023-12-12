@@ -49,7 +49,7 @@ def quitCheckBounds(promptInput, output_text):
         print("The program is now exiting Goodbye!")
         exit() # exits program
     else:
-        print(output_text + promptInput + "\n") # prints read mode
+        print(output_text, promptInput, "\n") # prints read mode
 
 def errorcheck(output_text, num, fileEntry): # runs error checks for various user input prompts
     if num == 1 and check_file_path(fileEntry, output_text) == False:
@@ -96,9 +96,9 @@ def dataFiltering(file_entry): # chooses year, mass or exit based on user input
         file_entry.titleholder = "MASS"
 
 def bounds_prompt(file_entry, label_text): # prompts for upper and lower bounds of mass or year
-    file_entry.lower_bound = file_bounds_prompter(file_entry.lower_bound, "Enter the LOWER limit (inclusive) for the meteor's " + label_text + " , (Enter Q to quit) \n", "Lower Bound: ")
+    file_entry.lower_bound = file_bounds_prompter(file_entry.lower_bound, "Enter the LOWER limit (inclusive) for the meteor's " + label_text + " , (Enter Q to quit) \n", "Lower Bound:")
     errorcheck(label_text, 4, file_entry)
-    file_entry.upper_bound = file_bounds_prompter(file_entry.upper_bound, "Enter the UPPER limit (inclusive) for the meteor's " + label_text + " , (Enter Q to quit) \n", "Upper Bound: ")
+    file_entry.upper_bound = file_bounds_prompter(file_entry.upper_bound, "Enter the UPPER limit (inclusive) for the meteor's " + label_text + " , (Enter Q to quit) \n", "Upper Bound:")
     errorcheck(label_text, 5, file_entry)
 
 def output_result_type_prompt(output_type, fileEntry): # runs prompt for output type
