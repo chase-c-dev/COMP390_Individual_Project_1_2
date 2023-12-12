@@ -102,6 +102,18 @@ def test_bounds_prompt_None(monkeypatch, capsys): # tests None
     captured = capsys.readouterr()
     assert "INVALID INPUT\n PLEASE ENTER A NUMERIC VALUE" in captured.out
 
+def test_bounds_prompt_real_numbers(monkeypatch, capsys): # tests integers
+    file_entry_test = createfileEntry()
+    test_input = Test_Input([0, 0])
+    monkeypatch.setattr('builtins.input', test_input)
+
+    #with pytest.raises(StopIteration):
+    bounds_prompt(file_entry_test, "MASS")
+
+    captured = capsys.readouterr()
+    assert file_entry_test.lower_bound == 0
+    assert file_entry_test.upper_bound == 0
+
 # Code to test file path function below
 #------------------------------------------------------------------------------------------------
 
@@ -135,7 +147,7 @@ def test_filepath_prompt_numbers(monkeypatch, capsys): # tests numbers inputted
     file_entry_test = createfileEntry()
     prompt = "Enter a valid file name(ex. filename.txt) with its file extension (if applicable) or enter >q or >Q to quit"
 
-    test_input = Test_Input(["17238"])
+    test_input = Test_Input([0])
     monkeypatch.setattr('builtins.input', test_input)
 
     with pytest.raises(StopIteration):
@@ -203,16 +215,64 @@ def test_mode_prompt(monkeypatch, capsys): # tests with normal file mode
     test_input = Test_Input(["r"])
     monkeypatch.setattr('builtins.input', test_input)
 
-    file_mode_data_prompter(file_entry_test, mode_prompt_return(), "File Mode: ")
+    with pytest.raises(StopIteration):
+        file_mode_data_prompter(file_entry_test, mode_prompt_return(), "File Mode: ")
 
     captured = capsys.readouterr()
-    assert "File Mode: r" in captured.out
     assert file_entry_test.mode == 'r'
+
+def test_mode_prompt_write(monkeypatch, capsys): # tests with normal file mode
+    file_entry_test = createfileEntry()
+
+    test_input = Test_Input(["w"])
+    monkeypatch.setattr('builtins.input', test_input)
+
+    with pytest.raises(StopIteration):
+        file_mode_data_prompter(file_entry_test, mode_prompt_return(), "File Mode: ")
+
+    captured = capsys.readouterr()
+    assert file_entry_test.mode == 'w'
 
 def test_mode_prompt_letters(monkeypatch, capsys): # tests with to many letters
     file_entry_test = createfileEntry()
 
     test_input = Test_Input(["rrr"])
+    monkeypatch.setattr('builtins.input', test_input)
+
+    with pytest.raises(StopIteration):
+        file_mode_data_prompter(file_entry_test, mode_prompt_return(), "File Mode: ")
+
+    captured = capsys.readouterr()
+    assert "INVALID FILE MODE\n Please Try Again\n" in captured.out
+
+def test_mode_prompt_numbers(monkeypatch, capsys): # tests with to many letters
+    file_entry_test = createfileEntry()
+
+    test_input = Test_Input(["423645"])
+    monkeypatch.setattr('builtins.input', test_input)
+
+    with pytest.raises(StopIteration):
+        file_mode_data_prompter(file_entry_test, mode_prompt_return(), "File Mode: ")
+
+    captured = capsys.readouterr()
+    assert "INVALID FILE MODE\n Please Try Again\n" in captured.out
+
+def test_mode_prompt_none(monkeypatch, capsys): # tests with to many letters
+    file_entry_test = createfileEntry()
+
+    test_input = Test_Input([None])
+    monkeypatch.setattr('builtins.input', test_input)
+
+    with pytest.raises(StopIteration):
+        file_mode_data_prompter(file_entry_test, mode_prompt_return(), "File Mode: ")
+
+    captured = capsys.readouterr()
+    assert "INVALID FILE MODE\n Please Try Again\n" in captured.out
+
+def test_mode_prompt_none(monkeypatch, capsys): # tests with to many letters
+    file_entry_test = createfileEntry()
+
+    test_input = Test_Input([0])
     monkeypatch.setattr('builtins.input', test_input)
 
     with pytest.raises(StopIteration):
