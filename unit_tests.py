@@ -269,7 +269,7 @@ def test_mode_prompt_none(monkeypatch, capsys): # tests with to many letters
     captured = capsys.readouterr()
     assert "INVALID FILE MODE\n Please Try Again\n" in captured.out
 
-def test_mode_prompt_none(monkeypatch, capsys): # tests with to many letters
+def test_mode_prompt_numbers(monkeypatch, capsys): # tests with to many letters
     file_entry_test = createfileEntry()
 
     test_input = Test_Input([0])
