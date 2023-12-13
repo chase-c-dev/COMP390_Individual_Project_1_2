@@ -142,6 +142,19 @@ def quitCheckMode(promptInput, output_text, fileEntry): # checks mode to see if 
        
 # checks to see if program quits or continues for bounds prompts
 def quitCheckBounds(promptInput, output_text):
+    '''
+    This is the docstring for the quit bounds prompt function. 
+    This function checks to see if the program exits or not
+
+    Parameters:
+    - promptInput contains the mode inputted by the user
+
+    - output_text contains the string that attaches 
+      to the mode string to let the user know what they inputted 
+
+    Returns:
+    - This function does not return
+    '''
     if promptInput == "Q": 
         print("The program is now exiting Goodbye!")
         exit() # exits program
@@ -149,6 +162,21 @@ def quitCheckBounds(promptInput, output_text):
         print(output_text, promptInput, "\n") # prints read mode
 
 def errorcheck(output_text, num, fileEntry): # runs error checks for various user input prompts
+    '''
+    This is the docstring for the error check function. 
+    This function runs checks based on the num parameter for errors 
+
+    Parameters:
+    - output_text is the text that is used for the after prompt 
+      output to let the user know what they inputted
+
+    - num contains a number that determines which error check to run
+
+    - fileEntry is an object that is used in functions run within this function
+
+    Returns:
+    - This function does not return
+    '''
     if num == 1 and check_file_path(fileEntry, output_text) == False:
         file_path_data_prompter(fileEntry, "Enter a valid file name(ex. filename.txt) with its file extension (if applicable) or enter >q or >Q to quit", "Target file: ")
     if num == 2 and check_for_mode(fileEntry, output_text) == False:
@@ -161,6 +189,21 @@ def errorcheck(output_text, num, fileEntry): # runs error checks for various use
         pass
 
 def errorcheck_bounds(output_text, num, fileEntry): # runs error checks for bounds and category
+    '''
+    This is the docstring for the error check bounds function. 
+    This function 
+
+    Parameters:
+    - promptInput contains the mode inputted by the user
+
+    - output_text contains the string that attaches 
+      to the mode string to let the user know what they inputted 
+
+    - fileEntry is an object that is used in functions run within this function
+
+    Returns:
+    - This function does not return
+    '''
     if num == 3 and filter_category_check(output_text) == False:
         dataFiltering(fileEntry)
     if num == 4 and check_lower_bound(fileEntry, output_text) == False:
@@ -172,6 +215,21 @@ def errorcheck_bounds(output_text, num, fileEntry): # runs error checks for boun
     else: pass
 
 def mode_prompt_text(): # returns string for mode prompt
+    '''
+    This is the docstring for the error check bounds function. 
+    This function 
+
+    Parameters:
+    - promptInput contains the mode inputted by the user
+
+    - output_text contains the string that attaches 
+      to the mode string to let the user know what they inputted 
+
+    - fileEntry is an object that is used in functions run within this function
+
+    Returns:
+    - This function does not return
+    '''
     mode_prompt = 'What mode would you like to open up the file with\n' 
     '"r" - open for reading (default)\n'
     '"m" - open for writing, truncating the file first (WARNING: this mode will delete the contents of an existing file)\n'
@@ -185,6 +243,17 @@ def mode_prompt_text(): # returns string for mode prompt
     
 
 def dataFiltering(file_entry): # chooses year, mass or exit based on user input
+    '''
+    This is the docstring for the data filtering function. 
+    This function runs a bounds prompt or quit based on user input, it will run bounds prompt
+    with either mass or year
+
+    Parameters:
+    - fileEntry is an object that is used in functions run within this function
+
+    Returns:
+    - This function does not return
+    '''
     data_filter = input("What attribute would you like to filter the data on\n 1. meteor MASS(g)\n 2. The Year the meteor fell to earth\n 3. QUIT\n")
     errorcheck(data_filter, 3, file_entry) # checks user_input for errors
     if data_filter == "3": # exists the program
@@ -198,12 +267,37 @@ def dataFiltering(file_entry): # chooses year, mass or exit based on user input
         file_entry.titleholder = "MASS"
 
 def bounds_prompt(file_entry, label_text): # prompts for upper and lower bounds of mass or year
+    '''
+    This is the docstring for the bounds prompt function. 
+    This function runs bound prompt for upper and lower bounds and error checks for both
+
+    Parameters:
+    - file_entry is an object that is used in functions run within this function
+
+    - label_text holds the string for the category that the data is being filtered on
+
+    Returns:
+    - This function does not return
+    '''
     file_entry.lower_bound = file_bounds_prompter(file_entry.lower_bound, "Enter the LOWER limit (inclusive) for the meteor's " + label_text + " , (Enter Q to quit) \n", "Lower Bound:")
     errorcheck(label_text, 4, file_entry)
     file_entry.upper_bound = file_bounds_prompter(file_entry.upper_bound, "Enter the UPPER limit (inclusive) for the meteor's " + label_text + " , (Enter Q to quit) \n", "Upper Bound:")
     errorcheck(label_text, 5, file_entry)
 
 def output_result_type_prompt(output_type, fileEntry): # runs prompt for output type
+    '''
+    This is the docstring for the output result type function. 
+    This function gets the output for the output result type prompt and checks for input errors
+
+    Parameters:
+    - fileEntry is an object that is used in functions run within this function
+    
+    - output_text is the text that is used for the after prompt 
+      output to let the user know what they inputted
+
+    Returns:
+    - returns output_type which contains the user input for the result type the user wants 
+    '''
     output_type = input("How would you like to putput the filter results?\n 1. On screen (in terminal)\n 2. To a TEXT file\n 3. To an EXCEL file\n 4. QUIT")
     errorcheck(output_type, 6, fileEntry)
     try:
