@@ -5,7 +5,7 @@ COMP 390-003
 # Basic Description:
 
 This project prompts users for input of a meteorite data text file. 
-It filters and outputs meteorite data entries based on what the user input.
+It filters and outputs meteorite data entries based on what the user inputs.
 
 # Link to Repository:
 
@@ -33,7 +33,9 @@ https://github.com/chase-c-dev/COMP390_Individual_Project_1_2
 
 - For the fifth prompt enter a upper bound, you must enter a number thats greater than the lower bound
 
-- For the sixth prompt choose how you want the filtered data to be outputted, you will be provided options to choose from 
+- For the sixth prompt choose how you want the filtered data to be outputted, you will be provided options to choose from
+
+- Note: you can quit the program at anytime by following the quit instructions that each prompt provides, inputting a value that causes an error will reprompt you the same prompt
 
 # Project Progress:
 
