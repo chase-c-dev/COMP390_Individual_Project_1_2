@@ -58,10 +58,14 @@ def file_store(fileEntry, meteorite_data_list): # stores the text file contents
     Returns:
         - This function returns meteorite_data_list which contains the filtered meteorite data entries
     '''
-    with open(fileEntry.textfile, fileEntry.mode) as f: # gets all the filtered meteorite objects
-        next(f) # skips first line of text in txt file
-        meteorite_data_list = createMeteorEntries(fileEntry, meteorite_data_list, f)
-        return meteorite_data_list
+    try:
+        with open(fileEntry.textfile, fileEntry.mode) as f: # gets all the filtered meteorite objects
+            next(f) # skips first line of text in txt file
+            meteorite_data_list = createMeteorEntries(fileEntry, meteorite_data_list, f)
+            return meteorite_data_list
+    except:
+        print("\nText File Is Empty! (You may have chosen write mode w), generated excel file contains no data")
+        exit()
 
 def get_headers(headers, filtered_data_sheet, index): # writes all the headers to the excel spreadsheet
     '''

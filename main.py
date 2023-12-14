@@ -59,7 +59,7 @@ def mode_prompt(fileEntry):
     '''
     file_mode_data_prompter(fileEntry, 'What mode would you like to open up the file with\n' 
         '"r" - open for reading (default)\n'
-        '"m" - open for writing, truncating the file first (WARNING: this mode will delete the contents of an existing file)\n'
+        '"w" - open for writing, truncating the file first (WARNING: this mode will delete the contents of an existing file)\n'
         '"x" - open for exclusive creation, failing if the file already exists\n'
         '"a" - open for writing, appending to the end of file if it exists\n'
         '"b" - binary mode\n'
@@ -82,12 +82,15 @@ def filterfile(fileEntry):
     Returns:
     - This function does not return
     '''
-    final_list = [] # stores the sorted meteor data entries
-    with open(fileEntry.textfile, fileEntry.mode) as f:
-        next(f) # skips first line of text in txt file
-        final_list = createMeteorEntries(fileEntry, final_list, f) # creates meteor entries for either all mass or year data
+    try:
+        final_list = [] # stores the sorted meteor data entries
+        with open(fileEntry.textfile, fileEntry.mode) as f:
+            next(f) # skips first line of text in txt file
+            final_list = createMeteorEntries(fileEntry, final_list, f) # creates meteor entries for either all mass or year data
 
-    tableCreate(final_list, fileEntry) # creates the table
+        tableCreate(final_list, fileEntry) # creates the table
+    except:
+        print("Text File Is Empty! (You may have chosen write mode w)")
 
 
 def tableCreate(final_list, fileEntry): # creates the tables in the terminal
@@ -123,7 +126,8 @@ def choose_output_result_type(fileEntry): # prompts user for options to output f
     - This function does not return
     '''
     output_type = output_result_type_prompt("", fileEntry)
-    filterfile(fileEntry)
+    if int(output_type) == 1:
+        filterfile(fileEntry)
     if int(output_type) == 2:
         create_text_file(fileEntry)
     if int(output_type) == 3:

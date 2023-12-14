@@ -22,23 +22,42 @@ def create_text_file(fileEntry): # creates txt file and writes to it
 def get_filtered_meteor_data_fortxt(fileEntry): # returns list of data to be written to text file
     '''
     This is the docstring for the get filtered meteor data for text file function
-    This function opens up the text file and gets all the filtered meteorite data into a list
+    This function creates lists and runs the functions that get all the filtered meteorite data and text file headers
 
     Parameters:
-        - fileEntry is used to get the text file name and mode and is used as a parameter in get line numbers 
+        - fileEntry is an object used by functions run within this function
 
     Returns:
         - returns a list containing filtered meteorite data
     '''
     data_for_textfile = []
     line_numbers = []
-    header = ""
-    with open(fileEntry.textfile, fileEntry.mode) as f:
-        header = f.readline()
-        next(f)
-        line_numbers = getLineNumbers(fileEntry, line_numbers, f)
+    header = getAll_Filtered_LineNumbers(fileEntry, line_numbers)
     data_for_textfile = get_all_text_data(line_numbers, header, fileEntry)
     return data_for_textfile
+
+def getAll_Filtered_LineNumbers(fileEntry, line_numbers):
+    '''
+    This is the docstring for the get all filtered line numbers function
+    This function opens up the text file and runs the function to get all the line numbers inside a try block
+
+    Parameters:
+        - fileEntry is used to get the text file name and mode and is used as a parameter in get line numbers 
+
+        - line_numbers is a list in which the filtered data line numbers are stored
+
+    Returns:
+        - Returns the headers for the text file
+    '''
+    try:
+        with open(fileEntry.textfile, fileEntry.mode) as f:
+            header = f.readline()
+            next(f)
+            line_numbers = getLineNumbers(fileEntry, line_numbers, f)
+            return header
+    except:
+        print("Text File Is Empty! (You may have chose write mode w)")
+        exit()
 
 def getLineNumbers(fileEntry, line_numbers, f): # gets the line numbers for all the data to be written
     '''
@@ -113,28 +132,48 @@ def chooseCategory(datachooser, fileEntry): # picks mass or year category for fi
 def get_all_text_data(line_numbers, header, fileEntry): # gets all the data to write to the new textfile
     '''
     This is the docstring for the get all text data function
-    This function opens up the user inputted text file and runs functions that filter and add 
-    meteorite data to the text_data list
+    This function appends the headers to the text data list and runs a function that gets all the filtered meteorite
+    data in the text_data list
 
     Parameters:
         - line_numbers contain the line numbers for where filtered meteorite data is located in the text file
 
         - header contains the meteorite data headers to be written first to the text file
 
-        - fileEntry is an object that contains the user inputted text file and mode amongst other things
+        - fileEntry is an object used as a parameter in functions run within this function
 
     Returns:
         - This function returns a list text_data that contains all information to be written to the new text file
     '''
     text_data = []
     text_data.append(header)
-    line_counter = 0
-    with open(fileEntry.textfile, fileEntry.mode) as f:
-        next(f)
-        for line in f:
-            add_line_number(text_data, line, search_line_numbers(line_numbers, line_counter))
-            line_counter += 1
+    open_to_add_text_data(fileEntry, text_data, line_numbers)
     return text_data
+
+def open_to_add_text_data(fileEntry, text_data, line_numbers):
+    '''
+    This is the docstring for the open to add text data function
+    This function opens up the text file and loops running a function that gets all the filtered data in a list
+
+    Parameters:
+        - fileEntry is used to get the text file name and mode 
+
+        - text_data is a list that is used as a parameter in add_line_number to store filtered meteorite data
+
+        - line_numbers is a list that contains all the line numbers for the selected meteorite entries
+
+    Returns:
+        - This function does not return anything
+    '''
+    try:
+        line_counter = 0
+        with open(fileEntry.textfile, fileEntry.mode) as f:
+            next(f)
+            for line in f:
+                add_line_number(text_data, line, search_line_numbers(line_numbers, line_counter))
+                line_counter += 1
+    except:
+        print("Text File Is Empty! (You may have chose write mode w)")
 
 def add_line_number(text_data, line, add_decider): # adds a line number is provided true
     '''
