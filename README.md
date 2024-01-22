@@ -1,11 +1,10 @@
-Chase Simao
-
-COMP 390-003 
+This was a project for my COMP 390-003 Software Engineering Class
 
 # Basic Description:
 
 This project prompts users for input of a meteorite data text file. 
 It filters and outputs meteorite data entries based on what the user inputs.
+Pytest is also implemented for testing purposes.
 
 # Link to Repository:
 
@@ -39,5 +38,5 @@ https://github.com/chase-c-dev/COMP390_Individual_Project_1_2
 
 # Project Progress:
 
-- All project requirements completed
+- This is a completed project
 
