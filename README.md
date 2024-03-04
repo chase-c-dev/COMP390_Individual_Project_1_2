@@ -36,7 +36,4 @@ https://github.com/chase-c-dev/COMP390_Individual_Project_1_2
 
 - Note: you can quit the program at anytime by following the quit instructions that each prompt provides, inputting a value that causes an error will reprompt you the same prompt
 
-# Project Progress:
-
-- This is a completed project
 
